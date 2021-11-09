@@ -8,9 +8,9 @@ steps:
 - name: build & push
   image: plugins/docker
   settings:
-    repo: ch1ch1/unimus
+    repo: smartinfrasolutions/unimus
     tags: [ "latest" ]
-    username: ch1ch1
+    username: smartinfrasolutions
     password:
       from_secret: dockerhub_token
 - name: notification
@@ -29,6 +29,6 @@ steps:
     status: [success, failure]
 ---
 kind: signature
-hmac: a5ab8942d2e4ac179c41c153bb3c7df2b08294cc056025f92fe094958a2d4b4a
+hmac: 85c88210c2e85bc343147b34e1d82971fb2f7d3a3fb7ee33521566f54255c494
 
 ...
