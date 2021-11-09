@@ -8,7 +8,7 @@ Unimus is a multi-vendor network device configuration backup and management solu
 ## Build
 
 ```
-docker build -t croc/unimus .
+docker build -t smartinfrasolutions/unimus .
 ```
 
 ## Run
@@ -23,7 +23,7 @@ You can run the unimus with 2 method:
 ### with HSQL
 
 ```
-docker run -tid --name=unimus -p 8085:8085 -v /srv/unimus/config:/etc/unimus/ croc/unimus
+docker run -tid --name=unimus -p 8085:8085 -v /srv/unimus/config:/etc/unimus/ smartinfrasolutions/unimus
 ```
 
 Configuration and HSQL databases files is in `/etc/unimus` folder in the container.
@@ -39,7 +39,7 @@ docker run -tid --name=unimus-db -v /srv/unimus/db:/var/lib/mysql -e MYSQL_ROOT_
 Start your Unimus:
 
 ```
-docker run -tid --name=unimus -p 8085:8085 -v /srv/unimus/config:/etc/unimus/ --link=unimus-db:db croc/unimus
+docker run -tid --name=unimus -p 8085:8085 -v /srv/unimus/config:/etc/unimus/ --link=unimus-db:db smartinfrasolutions/unimus
 ```
 
 You have to use these parameters with Unimus' MySQL config:
@@ -70,7 +70,7 @@ How to use a specified version with docker-compose file? <br />
 Add the version tag to the unimus image line. <br />
 Example:
 ```
-image: croc/unimus:v2.1.0
+image: smartinfrasolutions/unimus:v2.1.0
 ```
 
 Sorry, you can't build an image with an older unimus version, because I don't know the download URL for an older version. So I've built the docker image for the latest binary when it was an older version. <br />
@@ -89,7 +89,7 @@ You have to register on https://unimus.net/ for license keys.
 If you want to update unimus with this "stack":
   - stop all containers ( example: `docker stop unimus unimus-db` or `docker-compose stop` )
   - remove all containers ( example: `docker rm -v unimus unimus-db` or `docker-compose rm -v -f` )
-  - pull new images ( example: `docker pull croc/unimus` and `docker pull mariadb` or remove images to pull new `docker rmi croc/unimus mariadb` )
+  - pull new images ( example: `docker pull smartinfrasolutions/unimus` and `docker pull mariadb` or remove images to pull new `docker rmi smartinfrasolutions/unimus mariadb` )
   - start the stack again
 
 
@@ -103,7 +103,6 @@ Check the official documentation for more options.
 
 Check these pages:
   - https://wiki.unimus.net/display/UNPUB/Running+Unimus+behind+a+HTTP%28S%29+proxy
-  - https://github.com/crocandr/docker-unimus/issues/14
 
 Add the some extra parameters into the docker-compose file for the proxy connection. Example:
 ```
