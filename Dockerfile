@@ -13,8 +13,9 @@ RUN apt-get install -y openjdk-11-jdk-headless && \
     jarsigner -verify /opt/unimus.jar | grep -i "jar verified" || { echo "Unimus binary is not verified"; exit 1; } && \
     apt-get purge -y openjdk-11-jdk-headless
 # JRE install
-RUN apt-get install -y openjdk-11-jre-headless && \
-    apt-autoremove -y
+RUN apt-get install -y openjdk-11-jre-headless \
+    apt-get clean \
+    apt-get autoremove --yes
 #
 # Start script
 COPY files/start.sh /opt/start.sh
