@@ -14,8 +14,6 @@ RUN apt-get install -y openjdk-11-jdk-headless && \
     apt-get purge -y openjdk-11-jdk-headless
 # JRE install
 RUN apt-get install -y openjdk-11-jre-headless \
-    apt-get clean \
-    apt-get autoremove --yes
 #
 # Start script
 COPY files/start.sh /opt/start.sh
