@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:stable-slim
 
 ENV DOWNLOAD_URL https://download.unimus.net/unimus/-%20Latest/Unimus.jar
 
