@@ -2,8 +2,6 @@
 kind: pipeline
 type: docker
 name: Building..
-node:
-  drone: nimi
 steps:
 - name: build & push
   image: plugins/docker
