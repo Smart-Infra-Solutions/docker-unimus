@@ -2,8 +2,8 @@
 kind: pipeline
 type: docker
 name: Building..
-drone:
-  - nimi
+node:
+  drone: nimi
 steps:
 - name: build & push
   image: plugins/docker
@@ -29,6 +29,6 @@ steps:
     status: [success, failure]
 ---
 kind: signature
-hmac: 85c88210c2e85bc343147b34e1d82971fb2f7d3a3fb7ee33521566f54255c494
+hmac: 48f035677f8054418da93e826e1273ec0cadefaa27c7e39adffa32e4d7d09c4f
 
 ...
