@@ -3,7 +3,7 @@ kind: pipeline
 type: docker
 name: Building..
 node:
-  drone: ch1
+  drone: bzkg9
 steps:
 - name: build & push
   image: plugins/docker
