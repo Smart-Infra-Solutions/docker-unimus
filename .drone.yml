@@ -29,6 +29,6 @@ steps:
     status: [success, failure]
 ---
 kind: signature
-hmac: 85c88210c2e85bc343147b34e1d82971fb2f7d3a3fb7ee33521566f54255c494
+hmac: b257bef1dc2c7df5e588f5ed59a08999a01683010099be4a5082332e11b698f5
 
 ...
