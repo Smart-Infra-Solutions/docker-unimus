@@ -1,0 +1,145 @@
+---
+kind: pipeline
+type: docker
+name: Building dev
+node:
+  drone: bzkg9
+
+trigger:
+  event:
+    exclude:
+      - tag
+
+steps:
+
+  - name: build alpine
+    image: thegeeklab/drone-docker-buildx:23
+    privileged: true
+    settings:
+      username: smartinfrasolutions
+      dockerfile: Dockerfile-alpine
+      platforms:
+        - linux/amd64
+        - linux/arm64
+      password:
+        from_secret: dockerhub_token
+      repo: smartinfrasolutions/unimus
+      tags:
+        - latest-alpine-dev
+
+  - name: build debian
+    image: thegeeklab/drone-docker-buildx:23
+    privileged: true
+    settings:
+      username: smartinfrasolutions
+      dockerfile: Dockerfile-debian
+      platforms:
+        - linux/amd64
+        - linux/arm64
+        - linux/arm/v7
+      password:
+        from_secret: dockerhub_token
+      repo: smartinfrasolutions/unimus
+      tags:
+        - latest-debian-dev
+
+  - name: notification
+    image: plugins/webhook
+    settings:
+      urls:
+        from_secret: webhookgotify
+      content_type: application/json
+      template: |
+        {
+         "message": "{{ repo.owner }} as updated {{ repo.name }} with {{ build.status }}.",
+         "priority": 4,
+         "title": "{{ repo.name }} build"
+        }
+    when:
+      status: [success, failure]
+    depends_on:
+      - build debian
+      - build alpine
+---
+kind: pipeline
+type: docker
+name: Building
+
+node:
+  drone: bzkg9
+
+trigger:
+  event:
+    include:
+      - tag
+
+steps:
+
+  - name: build alpine
+    image: thegeeklab/drone-docker-buildx:23
+    privileged: true
+    settings:
+      username: smartinfrasolutions
+      dockerfile: Dockerfile-alpine
+      platforms:
+        - linux/amd64
+        - linux/arm64
+      password:
+        from_secret: dockerhub_token
+      repo: smartinfrasolutions/unimus
+      tags:
+        - latest-alpine
+        - ${DRONE_TAG}-alpine-${DRONE_STAGE_OS}
+
+  - name: build debian
+    image: thegeeklab/drone-docker-buildx:23
+    privileged: true
+    settings:
+      username: smartinfrasolutions
+      dockerfile: Dockerfile-debian
+      platforms:
+        - linux/amd64
+        - linux/arm64
+        - linux/arm/v7
+      password:
+        from_secret: dockerhub_token
+      repo: smartinfrasolutions/unimus
+      tags:
+        - latest-debian
+        - ${DRONE_TAG}-debian-${DRONE_STAGE_OS}
+
+  - name: push README dockerhub
+    image: chko/docker-pushrm:1
+    environment:
+      DOCKER_PASS:
+        from_secret: dockerhub_token
+      DOCKER_USER: smartinfrasolutions
+      PUSHRM_FILE: /drone/src/README.md
+      PUSHRM_SHORT: Alpine & Debian Unimus container
+      PUSHRM_TARGET: smartinfrasolutions/unimus
+    depends_on:
+      - build debian
+      - build alpine
+
+  - name: notification
+    image: plugins/webhook
+    settings:
+      urls:
+        from_secret: webhookgotify
+      content_type: application/json
+      template: |
+        {
+         "message": "{{ repo.owner }} as updated {{ repo.name }} with {{ build.status }}.",
+         "priority": 4,
+         "title": "{{ repo.name }} build"
+        }
+    when:
+      status: [success, failure]
+    depends_on:
+      - build debian
+      - build alpine
+---
+kind: signature
+hmac: 9d5c34cc376bf3e30a838f04dc8a70b873b317706f79cfc0adea24ae77c96da7
+
+...

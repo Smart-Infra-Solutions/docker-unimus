@@ -1,0 +1,22 @@
+FROM debian:11-slim
+
+# Set Unimus lated download url
+ENV DOWNLOAD_URL https://download.unimus.net/unimus/-%20Latest/Unimus.jar
+
+# Update & install
+RUN apt-get update && apt-get install -y curl less wget tzdata openjdk-11-jre-headless \
+    && apt-get clean \
+    && apt-get autoremove --yes \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/
+
+# Unimus binary download
+RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL
+
+# Copy all files (start.sh) into the container image
+COPY files/* /opt/
+
+# Add script permission
+RUN chmod +x /opt/start.sh
+
+# Entrypoint
+ENTRYPOINT ["/opt/start.sh"]
