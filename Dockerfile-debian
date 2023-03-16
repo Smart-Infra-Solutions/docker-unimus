@@ -20,5 +20,5 @@ COPY files/* /opt/
 RUN chmod +x /opt/start.sh
 
 # Entrypoint
-ENTRYPOINT ["/usr/bin/tini"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["/opt/start.sh"]
