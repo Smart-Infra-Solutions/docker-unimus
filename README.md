@@ -1,5 +1,5 @@
 # Unimus in Docker
-[![Build Status](https://drone.si.solutions/api/badges/SmartInfraSolutions/docker-unimus/status.svg)](https://drone.si.solutions/SmartInfraSolutions/docker-unimus)
+[![Build Status](https://drone.si.solutions/api/badges/Smart-Infra-Solutions/docker-unimus/status.svg)](https://drone.si.solutions/Smart-Infra-Solutions/docker-unimus)
 
 
 Unimus is a multi-vendor network device configuration backup and management solution, designed from the ground up with user friendliness, workflow optimization and ease-of-use in mind.
