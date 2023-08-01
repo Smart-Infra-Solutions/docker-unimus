@@ -140,6 +140,6 @@ steps:
       - build alpine
 ---
 kind: signature
-hmac: 9d5c34cc376bf3e30a838f04dc8a70b873b317706f79cfc0adea24ae77c96da7
+hmac: 1c4e6d6ebad5c3eb58c22669aae027281e0e4dd3ead247e1ba63cadd48c0e726
 
 ...
