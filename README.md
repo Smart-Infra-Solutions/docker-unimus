@@ -8,10 +8,10 @@ Unimus is a multi-vendor network device configuration backup and management solu
   - https://wiki.unimus.net/display/UNPUB/Running+in+Docker
 
 ## Versions
-Alpine 3.17   
-Debian 11.6 slim  
+Alpine 3.19   
+Debian 12.5-slim  
 
-Unimus 2.3.1
+Unimus 2.4.1
 
 ## Supported architectures:
 arm64, amd64  
