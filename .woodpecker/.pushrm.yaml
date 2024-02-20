@@ -1,3 +1,4 @@
+depends_on: [alpine, debian]
 when:
   - event: [pull_request, tag]
   - event: push
@@ -21,3 +22,4 @@ steps:
       PUSHRM_FILE: README.md
       PUSHRM_SHORT: Rootless Alpine base image
       PUSHRM_TARGET: smartinfrasolutions/unimus
+
