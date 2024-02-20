@@ -16,23 +16,23 @@ variables:
 
 steps:
 
-  build-unimus-alpine-dev:
+  build-unimus-debian-dev:
     image: *buildx_plugin
     settings:
       repo: *publish_repos
-      dockerfile: Dockerfile-alpine
-      platforms: *platforms_alpine
-      tag: latest-alpine-dev
+      dockerfile: Dockerfile-debian
+      platforms: *platforms_debian
+      tag: latest-debian-dev
       logins: *publish_logins
     when:
       - event: [pull_request, push]
 
-  build-unimus-alpine:
+  build-unimus-debian:
     image: *buildx_plugin
     settings:
       repo: *publish_repos
-      dockerfile: Dockerfile-alpine
-      platforms: *platforms_alpine
+      dockerfile: Dockerfile-debian
+      platforms: *platforms_debian
       tag: [latest, '${CI_COMMIT_TAG}-alpine-linux']
       logins: *publish_logins
     when:
