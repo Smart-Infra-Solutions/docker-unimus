@@ -1,17 +1,10 @@
 # Unimus in Docker
-[![Build Status](https://drone.si.solutions/api/badges/Smart-Infra-Solutions/docker-unimus/status.svg)](https://drone.si.solutions/Smart-Infra-Solutions/docker-unimus)
-
+[![status-badge](https://ci.si.solutions/api/badges/1/status.svg)](https://ci.si.solutions/repos/1)  
 
 Unimus is a multi-vendor network device configuration backup and management solution, designed from the ground up with user friendliness, workflow optimization and ease-of-use in mind.
 
   - https://unimus.net/
-  - https://wiki.unimus.net/display/UNPUB/Running+in+Docker
-
-## Versions
-Alpine 3.19   
-Debian 12.5-slim  
-
-Unimus 2.4.1
+  - https://wiki.unimus.net/display/UNPUB/Running+in+Docker  
 
 ## Supported architectures:
 arm64, amd64  
