@@ -7,7 +7,6 @@ when:
 variables:
   - &buildx_plugin 'docker.io/woodpeckerci/plugin-docker-buildx:3.1.0'
   - &platforms_alpine 'linux/arm64/v8,linux/amd64,linux/ppc64le'
-  - &platforms_debian 'linux/arm64/v8,linux/amd64,linux/ppc64le'
   - publish_logins: &publish_logins
       - registry: https://index.docker.io/v1/
         username: smartinfrasolutions
@@ -28,34 +27,12 @@ steps:
     when:
       - event: [pull_request, push]
 
-  build-unimus-debian-dev:
-    image: *buildx_plugin
-    settings:
-      repo: *publish_repos
-      dockerfile: Dockerfile-debian
-      platforms: *platforms_debian
-      tag: latest-debian-dev
-      logins: *publish_logins
-    when:
-      - event: [pull_request, push]
-
   build-unimus-alpine:
     image: *buildx_plugin
     settings:
       repo: *publish_repos
       dockerfile: Dockerfile-alpine
       platforms: *platforms_alpine
-      tag: [latest, '${CI_COMMIT_TAG}-alpine-linux']
-      logins: *publish_logins
-    when:
-      - event: tag
-
-  build-unimus-debian:
-    image: *buildx_plugin
-    settings:
-      repo: *publish_repos
-      dockerfile: Dockerfile-debian
-      platforms: *platforms_debian
       tag: [latest, '${CI_COMMIT_TAG}-alpine-linux']
       logins: *publish_logins
     when:
