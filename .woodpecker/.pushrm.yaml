@@ -4,14 +4,14 @@ when:
     branch:
       - ${CI_REPO_DEFAULT_BRANCH}
 
-variables:
-  - publish_logins: &publish_logins
-      - registry: https://index.docker.io/v1/
-        username: smartinfrasolutions
-        password:
-          from_secret: docker_token
-
 steps:
+
+  link-validation:
+    image: docker.io/lycheeverse/lychee
+    group: test
+    commands:
+      - lychee --no-progress --format detailed README.md
+
   pushrm-dockerhub:
     image: docker.io/chko/docker-pushrm:1
     secrets:
