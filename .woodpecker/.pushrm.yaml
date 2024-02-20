@@ -21,9 +21,4 @@ steps:
       DOCKER_USER: smatinfrasolutions
       PUSHRM_FILE: README.md
       PUSHRM_SHORT: Rootless Alpine base image
-      PUSHRM_TARGET: smatinfrasolutions/${CI_REPO_NAME}
-    when:
-      - event: [push, tag]
-        branch:
-          - ${CI_REPO_DEFAULT_BRANCH}
-        status: [success]
+      PUSHRM_TARGET: smartinfrasolutions/${CI_REPO_NAME}
