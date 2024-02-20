@@ -1,3 +1,4 @@
+---
 when:
   - event: [pull_request, tag]
   - event: push

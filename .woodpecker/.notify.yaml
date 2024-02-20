@@ -1,0 +1,10 @@
+---
+runs_on: [success, failure]
+when:
+  - event: [pull_request, tag]
+  - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+depends_on: [alpine, debian]
+
+
