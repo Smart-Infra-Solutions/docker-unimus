@@ -8,7 +8,6 @@ steps:
 
   link-validation:
     image: docker.io/lycheeverse/lychee
-    group: test
     commands:
       - lychee --no-progress --format detailed README.md
 
