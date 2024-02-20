@@ -18,7 +18,7 @@ steps:
       - source: docker_token
         target: DOCKER_PASS
     environment:
-      DOCKER_USER: smatinfrasolutions
+      DOCKER_USER: smartinfrasolutions
       PUSHRM_FILE: README.md
       PUSHRM_SHORT: Rootless Alpine base image
       PUSHRM_TARGET: smartinfrasolutions/unimus
