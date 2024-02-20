@@ -1,0 +1,29 @@
+when:
+  - event: [pull_request, tag]
+  - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+
+variables:
+  - publish_logins: &publish_logins
+      - registry: https://index.docker.io/v1/
+        username: smartinfrasolutions
+        password:
+          from_secret: docker_token
+
+steps:
+  pushrm-dockerhub:
+    image: docker.io/chko/docker-pushrm:1
+    secrets:
+      - source: docker_token
+        target: DOCKER_PASS
+    environment:
+      DOCKER_USER: smatinfrasolutions
+      PUSHRM_FILE: README.md
+      PUSHRM_SHORT: Rootless Alpine base image
+      PUSHRM_TARGET: smatinfrasolutions/${CI_REPO_NAME}
+    when:
+      - event: [push, tag]
+        branch:
+          - ${CI_REPO_DEFAULT_BRANCH}
+        status: [success]
