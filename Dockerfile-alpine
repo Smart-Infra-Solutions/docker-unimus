@@ -5,7 +5,7 @@ ENV DOWNLOAD_URL https://download.unimus.net/unimus/-%20Latest/Unimus.jar
 
 # Update & install
 RUN apk update && \
-    apk add --no-cache tini less curl wget tzdata openjdk11-jre-headless-11.0.22_p7-r0 && \
+    apk add --no-cache tini less curl wget tzdata openjdk11 && \
     rm -rf /var/cache/apk/*
 
 # Unimus binary download
