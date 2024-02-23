@@ -1,3 +1,4 @@
+---
 depends_on: [alpine, debian]
 when:
   - event: [pull_request, tag]
