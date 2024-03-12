@@ -1,4 +1,4 @@
-FROM debian:12.5-slim
+FROM debian:stable-slim
 
 # Set Unimus lated download url
 ENV DOWNLOAD_URL https://download.unimus.net/unimus/-%20Latest/Unimus.jar
