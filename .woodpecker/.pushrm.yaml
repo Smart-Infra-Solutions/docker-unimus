@@ -15,11 +15,10 @@ steps:
 
   pushrm-dockerhub:
     image: docker.io/chko/docker-pushrm:1
-    secrets:
-      - source: docker_token
-        target: DOCKER_PASS
     environment:
       DOCKER_USER: smartinfrasolutions
       PUSHRM_FILE: README.md
       PUSHRM_SHORT: Rootless Alpine base image
       PUSHRM_TARGET: smartinfrasolutions/unimus
+      DOCKER_PASS:
+        from_secert: docker_token
