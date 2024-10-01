@@ -12,13 +12,9 @@ steps:
     image: docker.io/lycheeverse/lychee
     commands:
       - lychee --no-progress --format detailed README.md
-
   pushrm-dockerhub:
     image: docker.io/chko/docker-pushrm:1
     environment:
-      DOCKER_USER: smartinfrasolutions
       PUSHRM_FILE: README.md
       PUSHRM_SHORT: Rootless Alpine base image
       PUSHRM_TARGET: smartinfrasolutions/unimus
-      DOCKER_PASS:
-        from_secert: docker_token
