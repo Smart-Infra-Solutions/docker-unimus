@@ -1,7 +1,7 @@
 FROM alpine:3.20
 
 # Set Unimus lated download url
-ENV DOWNLOAD_URL https://download.unimus.net/unimus/-%20Latest/Unimus.jar
+ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
 
 # Update & install
 RUN apk update && \
