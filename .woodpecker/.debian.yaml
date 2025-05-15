@@ -6,7 +6,7 @@ when:
       - ${CI_REPO_DEFAULT_BRANCH}
 
 variables:
-  - &buildx_plugin 'docker.io/woodpeckerci/plugin-docker-buildx'
+  - &buildx_plugin 'woodpeckerci/plugin-docker-buildx'
   - &platforms_debian 'linux/arm64/v8,linux/amd64,linux/ppc64le'
   - publish_logins: &publish_logins
       - registry: https://index.docker.io/v1/
