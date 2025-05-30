@@ -22,7 +22,7 @@ steps:
       repo: *publish_repos
       dockerfile: Dockerfile-alpine
       platforms: *platforms_alpine
-      tag: [latest-alpine, '$dev-alpine-linux']
+      tag: [latest-alpine, 'dev-alpine-linux']
       logins: *publish_logins
     when:
       - event:
