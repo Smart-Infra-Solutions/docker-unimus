@@ -1,7 +1,6 @@
 ---
 when:
-  - event: [pull_request, tag]
-  - event: push
+  - event: [pull_request, push, tag]
     branch:
       - ${CI_REPO_DEFAULT_BRANCH}
 
@@ -23,7 +22,19 @@ steps:
       repo: *publish_repos
       dockerfile: Dockerfile-debian
       platforms: *platforms_debian
+      tag: [latest-debian, 'dev-debian-linux']
+      logins: *publish_logins
+    when:
+      - event: 
+         - push
+
+  build-unimus-debian:
+    image: *buildx_plugin
+    settings:
+      repo: *publish_repos
+      dockerfile: Dockerfile-debian
+      platforms: *platforms_debian
       tag: [latest-debian, '${CI_COMMIT_TAG}-debian-linux']
       logins: *publish_logins
     when:
-      - event: [pull_request, push, tag]
+      - event: [pull_request, tag]

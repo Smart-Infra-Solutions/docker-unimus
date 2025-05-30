@@ -1,7 +1,6 @@
 ---
 when:
-  - event: [pull_request, tag]
-  - event: push
+  - event: [push, pull_request, tag]
     branch:
       - ${CI_REPO_DEFAULT_BRANCH}
 
@@ -23,7 +22,19 @@ steps:
       repo: *publish_repos
       dockerfile: Dockerfile-alpine
       platforms: *platforms_alpine
+      tag: [latest-alpine, '$dev-alpine-linux']
+      logins: *publish_logins
+    when:
+      - event:
+         - push
+
+  build-unimus-alpine-dev:
+    image: *buildx_plugin
+    settings:
+      repo: *publish_repos
+      dockerfile: Dockerfile-alpine
+      platforms: *platforms_alpine
       tag: [latest-alpine, '${CI_COMMIT_TAG}-alpine-linux']
       logins: *publish_logins
     when:
-      - event: [pull_request, push, tag]
+      - event: [pull_request, tag]
