@@ -6,7 +6,7 @@ ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
 
 # Update & install
 RUN apt-get update && \
-    apt-get install -y apt-utils dialog curl tini less wget tzdata openjdk-17-jre-headless iputils-ping && \
+    apt-get install -y apt-utils dialog curl tini less wget tzdata openjdk-25-jre-headless iputils-ping && \
     apt-get clean && \
     apt-get autoremove --yes && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
