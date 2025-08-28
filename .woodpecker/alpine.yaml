@@ -16,7 +16,7 @@ variables:
 
 steps:
 
-  build-unimus-alpine-dev:
+  - name: build-unimus-alpine-dev
     image: *buildx_plugin
     settings:
       repo: *publish_repos
@@ -28,7 +28,7 @@ steps:
       - event:
          - push
 
-  build-unimus-alpine-dev:
+  - name: build-unimus-alpine-dev
     image: *buildx_plugin
     settings:
       repo: *publish_repos

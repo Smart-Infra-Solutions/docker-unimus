@@ -7,12 +7,12 @@ when:
       - ${CI_REPO_DEFAULT_BRANCH}
 
 steps:
-  link-validation:
+  - name: link-validation
     image: docker.io/lycheeverse/lychee
     commands:
       - lychee --no-progress --format detailed README.md
 
-  pushrm-dockerhub:
+  - name: pushrm-dockerhub
     image: docker.io/chko/docker-pushrm:1
     environment:
       DOCKER_USER: smartinfrasolutions
