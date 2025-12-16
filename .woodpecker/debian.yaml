@@ -16,7 +16,7 @@ variables:
 
 steps:
 
-  - name: build-unimus-debian
+  - name: build-unimus-debian-dev
     image: *buildx_plugin
     settings:
       repo: *publish_repos
