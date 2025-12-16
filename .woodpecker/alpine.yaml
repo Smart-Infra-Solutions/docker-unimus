@@ -28,7 +28,7 @@ steps:
       - event:
          - push
 
-  - name: build-unimus-alpine-dev
+  - name: build-unimus-alpine
     image: *buildx_plugin
     settings:
       repo: *publish_repos
