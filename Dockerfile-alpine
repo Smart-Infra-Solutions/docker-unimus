@@ -1,4 +1,4 @@
-FROM zulu-openjdk-alpine:8-latest
+FROM azul/zulu-openjdk-alpine:8-latest
 
 # Set Unimus lated download url
 ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
