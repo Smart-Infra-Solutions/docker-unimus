@@ -1,8 +1,11 @@
 FROM debian:stable-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Set Unimus lated download url
+# Set Unimus latest download url
 ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
+
+# Optional: Set expected SHA256 checksum for JAR verification (empty = skip verification)
+ARG JAR_SHA256="7cca710b8e735064d3a945e5a8451434832466c879621b0a08c58338b33061f5"
 
 # Update & install
 RUN apt-get update && \
@@ -11,14 +14,27 @@ RUN apt-get update && \
     apt-get autoremove --yes && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-# Unimus binary download
-RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL
+# Unimus binary download with optional integrity check
+RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL && \
+    if [ ! -z "$JAR_SHA256" ]; then \
+        echo "$JAR_SHA256  /opt/unimus.jar" | sha256sum -c - || { echo "Checksum verification failed!"; exit 1; }; \
+        echo "JAR checksum verified successfully"; \
+    else \
+        echo "Warning: Skipping checksum verification (JAR_SHA256 not set)"; \
+    fi
 
 # Copy all files (start.sh) into the container image
 COPY files/* /opt/
 
 # Add script permission
 RUN chmod +x /opt/start.sh
+
+# Expose Unimus web interface port
+EXPOSE 8085
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD wget --quiet --tries=1 --spider http://localhost:8085/ || exit 1
 
 # Entrypoint
 ENTRYPOINT ["/usr/bin/tini", "--"]
