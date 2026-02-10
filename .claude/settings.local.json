@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd CI test suite for Docker images\n\n- Add build-test-image step to validate Dockerfiles\n- Add test-container-start to verify container startup\n- Add test-config-generation to check file structure\n- Add test-healthcheck to validate health monitoring\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git tag:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
