@@ -1,20 +1,20 @@
-FROM debian:stable-slim
+# Stage 1: Download and verify
+FROM debian:stable-slim AS downloader
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Set Unimus latest download url
 ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
 
-# Optional: Set expected SHA256 checksum for JAR verification (empty = skip verification)
+# Optional: Set expected SHA256 checksum for JAR verification
 ARG JAR_SHA256="7cca710b8e735064d3a945e5a8451434832466c879621b0a08c58338b33061f5"
 
-# Update & install
+# Install download tools
 RUN apt-get update && \
-    apt-get install -y apt-utils dialog curl tini less wget tzdata openjdk-25-jre-headless iputils-ping && \
+    apt-get install -y curl && \
     apt-get clean && \
-    apt-get autoremove --yes && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-# Unimus binary download with optional integrity check
+# Download and verify JAR
 RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL && \
     if [ ! -z "$JAR_SHA256" ]; then \
         echo "$JAR_SHA256  /opt/unimus.jar" | sha256sum -c - || { echo "Checksum verification failed!"; exit 1; }; \
@@ -23,10 +23,22 @@ RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL && \
         echo "Warning: Skipping checksum verification (JAR_SHA256 not set)"; \
     fi
 
-# Copy all files (start.sh) into the container image
-COPY files/* /opt/
+# Stage 2: Final runtime image
+FROM debian:stable-slim
+ARG DEBIAN_FRONTEND=noninteractive
 
-# Add script permission
+# Install only runtime dependencies (no curl needed)
+RUN apt-get update && \
+    apt-get install -y apt-utils dialog tini less wget tzdata openjdk-25-jre-headless iputils-ping && \
+    apt-get clean && \
+    apt-get autoremove --yes && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
+
+# Copy verified JAR from downloader stage
+COPY --from=downloader /opt/unimus.jar /opt/unimus.jar
+
+# Copy start script
+COPY files/* /opt/
 RUN chmod +x /opt/start.sh
 
 # Expose Unimus web interface port
