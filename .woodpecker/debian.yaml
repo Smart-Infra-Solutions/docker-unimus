@@ -16,6 +16,42 @@ variables:
 
 steps:
 
+  - name: build-test-image
+    image: docker:cli
+    commands:
+      - docker build -f Dockerfile-debian -t unimus:test-debian .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  - name: test-container-start
+    image: docker:cli
+    commands:
+      - docker run -d --name unimus-test -e XMX=512m unimus:test-debian
+      - sleep 10
+      - docker ps | grep unimus-test
+      - docker logs unimus-test
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  - name: test-config-generation
+    image: docker:cli
+    commands:
+      - docker exec unimus-test sh -c "test -f /opt/unimus.jar && echo 'JAR file exists'"
+      - docker exec unimus-test sh -c "test -f /opt/start.sh && echo 'Start script exists'"
+      - docker exec unimus-test sh -c "test -x /opt/start.sh && echo 'Start script is executable'"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  - name: test-healthcheck
+    image: docker:cli
+    commands:
+      - docker inspect --format='{{.State.Health.Status}}' unimus-test || echo "Healthcheck not yet ready"
+      - sleep 65
+      - docker inspect --format='{{.State.Health.Status}}' unimus-test
+      - docker rm -f unimus-test
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   - name: build-unimus-debian-dev
     image: *buildx_plugin
     settings:
