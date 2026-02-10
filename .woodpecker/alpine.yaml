@@ -16,6 +16,14 @@ variables:
 
 steps:
 
+  - name: cleanup-test-containers
+    image: docker:cli
+    commands:
+      - docker rm -f unimus-test 2>/dev/null || true
+      - docker rmi unimus:test-alpine 2>/dev/null || true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   - name: build-test-image
     image: docker:cli
     commands:
@@ -26,6 +34,7 @@ steps:
   - name: test-container-start
     image: docker:cli
     commands:
+      - docker rm -f unimus-test 2>/dev/null || true
       - docker run -d --name unimus-test -e XMX=512m unimus:test-alpine
       - sleep 10
       - docker ps | grep unimus-test
