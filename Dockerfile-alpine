@@ -34,6 +34,10 @@ COPY --from=downloader /opt/unimus.jar /opt/unimus.jar
 COPY files/* /opt/
 RUN chmod +x /opt/start.sh
 
+# Pin the data directory: Unimus runs from its working directory and writes
+# its database/, conf/, output/ and logs/ there. Mount a volume on /data to persist.
+WORKDIR /data
+
 # Expose Unimus web interface port
 EXPOSE 8085
 
