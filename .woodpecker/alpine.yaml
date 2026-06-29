@@ -19,7 +19,7 @@ steps:
   - name: cleanup-test-containers
     image: docker:cli
     commands:
-      - docker rm -f unimus-test 2>/dev/null || true
+      - docker rm -f unimus-test-alpine 2>/dev/null || true
       - docker rmi unimus:test-alpine 2>/dev/null || true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -34,30 +34,30 @@ steps:
   - name: test-container-start
     image: docker:cli
     commands:
-      - docker rm -f unimus-test 2>/dev/null || true
-      - docker run -d --name unimus-test -e XMX=512m unimus:test-alpine
+      - docker rm -f unimus-test-alpine 2>/dev/null || true
+      - docker run -d --name unimus-test-alpine -e XMX=512m unimus:test-alpine
       - sleep 10
-      - docker ps | grep unimus-test
-      - docker logs unimus-test
+      - docker ps | grep unimus-test-alpine
+      - docker logs unimus-test-alpine
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   - name: test-config-generation
     image: docker:cli
     commands:
-      - docker exec unimus-test sh -c "test -f /opt/unimus.jar && echo 'JAR file exists'"
-      - docker exec unimus-test sh -c "test -f /opt/start.sh && echo 'Start script exists'"
-      - docker exec unimus-test sh -c "test -x /opt/start.sh && echo 'Start script is executable'"
+      - docker exec unimus-test-alpine sh -c "test -f /opt/unimus.jar && echo 'JAR file exists'"
+      - docker exec unimus-test-alpine sh -c "test -f /opt/start.sh && echo 'Start script exists'"
+      - docker exec unimus-test-alpine sh -c "test -x /opt/start.sh && echo 'Start script is executable'"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   - name: test-healthcheck
     image: docker:cli
     commands:
-      - docker inspect --format='{{.State.Health.Status}}' unimus-test || echo "Healthcheck not yet ready"
+      - docker inspect --format='{{.State.Health.Status}}' unimus-test-alpine || echo "Healthcheck not yet ready"
       - sleep 65
-      - docker inspect --format='{{.State.Health.Status}}' unimus-test
-      - docker rm -f unimus-test
+      - docker inspect --format='{{.State.Health.Status}}' unimus-test-alpine
+      - docker rm -f unimus-test-alpine
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
