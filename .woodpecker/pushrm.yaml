@@ -13,9 +13,7 @@ steps:
     environment:
       DOCKER_USER: smartinfrasolutions
       PUSHRM_FILE: README.md
-      PUSHRM_SHORT: Rootless Alpine & Debian images
+      PUSHRM_SHORT: Unimus Server — Alpine & Debian images
       PUSHRM_TARGET: smartinfrasolutions/unimus
-      DOCKER_PASS: 
-        - from_secret: docker_token
-    commands:
-       - /bin/true
+      DOCKER_PASS:
+        from_secret: docker_token
