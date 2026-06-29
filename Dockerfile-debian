@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
 
 # Optional: Set expected SHA256 checksum for JAR verification
-ARG JAR_SHA256="7cca710b8e735064d3a945e5a8451434832466c879621b0a08c58338b33061f5"
+ARG JAR_SHA256="8fca394b0fc60e99dddc754e8d267917073a4bca4b6ac48d05dbcc0185638591"
 
 # Install download tools
 RUN apt-get update && \
