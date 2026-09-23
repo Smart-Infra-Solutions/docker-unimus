@@ -11,9 +11,9 @@ steps:
   - name: pushrm-dockerhub
     image: docker.io/chko/docker-pushrm:1
     environment:
-      DOCKER_USER: smartinfrasolutions
+      DOCKER_USER: fsenchet
       PUSHRM_FILE: README.md
       PUSHRM_SHORT: Unimus Server — Alpine & Debian images
-      PUSHRM_TARGET: smartinfrasolutions/unimus
+      PUSHRM_TARGET: sisolutions/unimus
       DOCKER_PASS:
         from_secret: docker_token
