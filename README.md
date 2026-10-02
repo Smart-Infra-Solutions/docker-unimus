@@ -1,9 +1,8 @@
 # Unimus in Docker
 
 [![status-badge](https://ci.si.solutions/api/badges/1/status.svg)](https://ci.si.solutions/repos/1)
-[![Docker Pulls](https://img.shields.io/docker/pulls/sisolutions/unimus)](https://hub.docker.com/r/sisolutions/unimus)
-[![Docker Image Version](https://img.shields.io/docker/v/sisolutions/unimus?sort=semver)](https://hub.docker.com/r/sisolutions/unimus/tags)
-[![Image Size](https://img.shields.io/docker/image-size/sisolutions/unimus/latest-alpine?label=alpine%20size)](https://hub.docker.com/r/sisolutions/unimus/tags)
+[![GHCR](https://img.shields.io/badge/ghcr.io-smart--infra--solutions%2Funimus-blue?logo=github)](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)
+[![Image Version](https://img.shields.io/github/v/tag/Smart-Infra-Solutions/docker-unimus?sort=semver&label=version)](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)
 
 > **Unimus** is a multi-vendor network device configuration backup and management
 > solution, designed from the ground up with user friendliness, workflow optimization
@@ -39,7 +38,7 @@ or more **Remote Cores**.
 ```
         ┌──────────────────────────┐                ┌────────────────────────────┐
         │  Unimus Server           │   core conn.   │  Unimus Remote Core        │
-        │  sisolutions/            │◄───────────────│  sisolutions/              │
+        │  smart-infra-solutions/  │◄───────────────│  sisolutions/              │
         │  unimus  (this image)    │  TCP :5509     │  unimus-core               │
         │  Web UI :8085            │  + access key  │                            │
         └──────────────────────────┘                └─────────────┬──────────────┘
@@ -67,7 +66,7 @@ docker run -d \
   -e XMX=2g \
   -e TZ=Europe/Paris \
   -v unimus-data:/data \
-  sisolutions/unimus:latest-alpine
+  ghcr.io/smart-infra-solutions/unimus:latest-alpine
 ```
 
 Then open the web UI at **http://localhost:8085** and follow the first-run wizard.
@@ -77,7 +76,7 @@ Then open the web UI at **http://localhost:8085** and follow the first-run wizar
 ```yaml
 services:
   unimus:
-    image: sisolutions/unimus:latest-alpine
+    image: ghcr.io/smart-infra-solutions/unimus:latest-alpine
     container_name: unimus
     restart: unless-stopped
     ports:
@@ -126,7 +125,7 @@ container's `start.sh` entrypoint.
 
 > For production, **pin a specific version tag** rather than `latest-*`.
 
-Browse all tags on **[Docker Hub](https://hub.docker.com/r/sisolutions/unimus/tags)**.
+Browse all tags on **[GitHub Container Registry](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)**.
 
 ---
 
@@ -185,12 +184,12 @@ docker build -f Dockerfile-alpine \
 
 ## 🔗 Related projects & links
 
-- 🧠 **This image (Unimus Server)** — [`sisolutions/unimus`](https://hub.docker.com/r/sisolutions/unimus)
+- 🧠 **This image (Unimus Server)** — [`ghcr.io/smart-infra-solutions/unimus`](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)
   · [source](https://github.com/Smart-Infra-Solutions/docker-unimus)
 - 🛰️ **Unimus Remote Core image** — [`sisolutions/unimus-core`](https://hub.docker.com/r/sisolutions/unimus-core)
   · [source](https://github.com/Smart-Infra-Solutions/docker-unimus-core)
 - 📖 **Unimus** — https://unimus.net/
-- 🏢 **Docker Hub org** — https://hub.docker.com/u/sisolutions
+- 🏢 **GitHub Packages** — https://github.com/orgs/Smart-Infra-Solutions/packages
 
 ---
 
