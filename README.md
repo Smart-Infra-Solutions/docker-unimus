@@ -1,8 +1,8 @@
 # Unimus in Docker
 
 [![status-badge](https://ci.si.solutions/api/badges/1/status.svg)](https://ci.si.solutions/repos/1)
-[![GHCR](https://img.shields.io/badge/ghcr.io-smart--infra--solutions%2Funimus-blue?logo=github)](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)
-[![Image Version](https://img.shields.io/github/v/tag/Smart-Infra-Solutions/docker-unimus?sort=semver&label=version)](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)
+[![GHCR](https://img.shields.io/badge/ghcr.io-smart--infra--solutions%2Funimus-blue?logo=github)](https://github.com/orgs/Smart-Infra-Solutions/packages/container/package/unimus)
+[![Image Version](https://img.shields.io/github/v/tag/Smart-Infra-Solutions/docker-unimus?sort=semver&label=version)](https://github.com/orgs/Smart-Infra-Solutions/packages/container/package/unimus)
 
 > **Unimus** is a multi-vendor network device configuration backup and management
 > solution, designed from the ground up with user friendliness, workflow optimization
@@ -15,21 +15,21 @@ and **Debian** flavors, built for **`amd64`** and **`arm64`**.
 
 ---
 
-## ✨ Highlights
+## Highlights
 
-- 🪶 **Two flavors** — minimal **Alpine** (smallest footprint) or **Debian** (glibc).
-- 🏗️ **Multi-stage build** — the JAR is downloaded and checksum-verified in a builder
+- **Two flavors** — minimal **Alpine** (smallest footprint) or **Debian** (glibc).
+- **Multi-stage build** — the JAR is downloaded and checksum-verified in a builder
   stage; the final image ships only the runtime (no `curl`, smaller attack surface).
-- 🔒 **Integrity verified** — the `Unimus.jar` is pinned to a **SHA-256** checksum at
+- **Integrity verified** — the `Unimus.jar` is pinned to a **SHA-256** checksum at
   build time, so a tampered or truncated download fails the build immediately.
-- ☕ **Java 25** runtime (Azul Zulu on Alpine, OpenJDK on Debian).
-- ❤️ **Built-in HEALTHCHECK** on the web interface (`:8085`).
-- 🌍 **Multi-arch** — `linux/amd64` and `linux/arm64/v8`.
-- 🛡️ **`tini`** as PID 1 for correct signal handling and zombie reaping.
+- **Java 25** runtime (Azul Zulu on Alpine, OpenJDK on Debian).
+- **Built-in HEALTHCHECK** on the web interface (`:8085`).
+- **Multi-arch** — `linux/amd64` and `linux/arm64/v8`.
+- **`tini`** as PID 1 for correct signal handling and zombie reaping.
 
 ---
 
-## 🧩 Architecture & Remote Cores
+## Architecture & Remote Cores
 
 This image runs the **Unimus Server** — the web UI, the database and the orchestrator.
 To reach devices in remote networks, behind NAT or in isolated zones, pair it with one
@@ -38,7 +38,7 @@ or more **Remote Cores**.
 ```
         ┌──────────────────────────┐                ┌────────────────────────────┐
         │  Unimus Server           │   core conn.   │  Unimus Remote Core        │
-        │  smart-infra-solutions/  │◄───────────────│  sisolutions/              │
+        │  smart-infra-solutions/  │◄───────────────│  smart-infra-solutions/    │
         │  unimus  (this image)    │  TCP :5509     │  unimus-core               │
         │  Web UI :8085            │  + access key  │                            │
         └──────────────────────────┘                └─────────────┬──────────────┘
@@ -51,13 +51,13 @@ The core dials **out** to the Server's core port, so no inbound firewall rules t
 the remote network are required. Generate the access key in the Web UI under
 **Zones → Remote core access key**.
 
-> 🛰️ **Remote Core image** — [`sisolutions/unimus-core`](https://hub.docker.com/r/sisolutions/unimus-core)
+> **Remote Core image** — [`ghcr.io/smart-infra-solutions/unimus-core`](https://github.com/orgs/Smart-Infra-Solutions/packages/container/package/unimus-core)
 > · [source](https://github.com/Smart-Infra-Solutions/docker-unimus-core).
 > Keep the Core version **aligned** with this Server version.
 
 ---
 
-## 🚀 Quick start
+## Quick start
 
 ```bash
 docker run -d \
@@ -91,14 +91,14 @@ volumes:
   unimus-data:
 ```
 
-> 💾 **Persistence** — the image pins its working directory to **`/data`**, where Unimus
+> **Persistence** — the image pins its working directory to **`/data`**, where Unimus
 > stores its embedded database (`database/`), configuration (`conf/`), exports
 > (`output/`) and logs (`logs/`). Mount a named volume or bind mount on `/data` to keep
 > everything across container recreation. **Back up this directory** before upgrades.
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 All configuration is done through environment variables, consumed by the
 container's `start.sh` entrypoint.
@@ -114,7 +114,7 @@ container's `start.sh` entrypoint.
 
 ---
 
-## 🏷️ Image tags
+## Image tags
 
 | Tag                    | Flavor | Description                                          |
 |------------------------|--------|------------------------------------------------------|
@@ -125,11 +125,11 @@ container's `start.sh` entrypoint.
 
 > For production, **pin a specific version tag** rather than `latest-*`.
 
-Browse all tags on **[GitHub Container Registry](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)**.
+Browse all tags on **[GitHub Container Registry](https://github.com/orgs/Smart-Infra-Solutions/packages/container/package/unimus)**.
 
 ---
 
-## 🩺 Health & operations
+## Health & operations
 
 The image declares a `HEALTHCHECK` that probes the web interface:
 
@@ -146,7 +146,7 @@ docker logs -f unimus
 
 ---
 
-## 🧱 How the image is built
+## How the image is built
 
 The Dockerfiles use a two-stage build:
 
@@ -176,20 +176,20 @@ docker build -f Dockerfile-alpine \
 
 ---
 
-## 🖥️ Supported architectures
+## Supported architectures
 
 `linux/amd64` · `linux/arm64/v8`
 
 ---
 
-## 🔗 Related projects & links
+## Related projects & links
 
-- 🧠 **This image (Unimus Server)** — [`ghcr.io/smart-infra-solutions/unimus`](https://github.com/Smart-Infra-Solutions/docker-unimus/pkgs/container/unimus)
+- **This image (Unimus Server)** — [`ghcr.io/smart-infra-solutions/unimus`](https://github.com/orgs/Smart-Infra-Solutions/packages/container/package/unimus)
   · [source](https://github.com/Smart-Infra-Solutions/docker-unimus)
-- 🛰️ **Unimus Remote Core image** — [`sisolutions/unimus-core`](https://hub.docker.com/r/sisolutions/unimus-core)
+- **Unimus Remote Core image** — [`ghcr.io/smart-infra-solutions/unimus-core`](https://github.com/orgs/Smart-Infra-Solutions/packages/container/package/unimus-core)
   · [source](https://github.com/Smart-Infra-Solutions/docker-unimus-core)
-- 📖 **Unimus** — https://unimus.net/
-- 🏢 **GitHub Packages** — https://github.com/orgs/Smart-Infra-Solutions/packages
+- **Unimus** — https://unimus.net/
+- **GitHub Packages** — https://github.com/orgs/Smart-Infra-Solutions/packages
 
 ---
 
