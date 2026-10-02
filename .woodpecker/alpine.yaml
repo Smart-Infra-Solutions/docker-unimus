@@ -69,7 +69,7 @@ steps:
       platforms: *platforms_alpine
       tag: [latest-alpine, 'dev-alpine-linux']
       logins: *publish_logins
-      auto_labels: false
+      default_labels: false
     when:
       - event:
          - push
@@ -82,6 +82,6 @@ steps:
       platforms: *platforms_alpine
       tag: [latest-alpine, '${CI_COMMIT_TAG}-alpine-linux']
       logins: *publish_logins
-      auto_labels: false
+      default_labels: false
     when:
       - event: [pull_request, tag]
