@@ -13,7 +13,6 @@ variables:
         password:
           from_secret: ghcr_token
   - &publish_repos 'ghcr.io/smart-infra-solutions/unimus'
-  - &image_labels 'org.opencontainers.image.source=https://github.com/Smart-Infra-Solutions/docker-unimus'
 
 steps:
 
@@ -70,7 +69,7 @@ steps:
       platforms: *platforms_alpine
       tag: [latest-alpine, 'dev-alpine-linux']
       logins: *publish_logins
-      labels: *image_labels
+      auto_labels: false
     when:
       - event:
          - push
@@ -83,6 +82,6 @@ steps:
       platforms: *platforms_alpine
       tag: [latest-alpine, '${CI_COMMIT_TAG}-alpine-linux']
       logins: *publish_logins
-      labels: *image_labels
+      auto_labels: false
     when:
       - event: [pull_request, tag]

@@ -22,6 +22,9 @@ RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL && \
 # Stage 2: Final runtime image
 FROM azul/zulu-openjdk-alpine:25-latest
 
+# Link the image to its source repository (GitHub Container Registry)
+LABEL org.opencontainers.image.source=https://github.com/Smart-Infra-Solutions/docker-unimus
+
 # Install only runtime dependencies (no curl needed)
 RUN apk update && \
     apk add --no-cache tini less wget tzdata iputils-ping && \
