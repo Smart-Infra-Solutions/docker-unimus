@@ -1,5 +1,5 @@
 # Stage 1: Download and verify
-FROM alpine:latest AS downloader
+FROM alpine:latest@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf AS downloader
 
 # Set Unimus latest download url
 ENV DOWNLOAD_URL=https://download.unimus.net/unimus/-%20Latest/Unimus.jar
@@ -20,7 +20,7 @@ RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL && \
     fi
 
 # Stage 2: Final runtime image
-FROM azul/zulu-openjdk-alpine:25-latest
+FROM azul/zulu-openjdk-alpine:25-latest@sha256:d6381cdbcf5d6b5ba57be715263c82fd1ef7bf46705c58de17c023e3fe5133a3
 
 # Link the image to its source repository (GitHub Container Registry)
 LABEL org.opencontainers.image.source=https://github.com/Smart-Infra-Solutions/docker-unimus

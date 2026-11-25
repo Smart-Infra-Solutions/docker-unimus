@@ -1,5 +1,5 @@
 # Stage 1: Download and verify
-FROM debian:stable-slim AS downloader
+FROM debian:stable-slim@sha256:a64d9dbf633e2a2503afac76be521dc25d9b5765150b30d31a3914d4ae969cab AS downloader
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Set Unimus latest download url
@@ -24,7 +24,7 @@ RUN curl -L -o /opt/unimus.jar $DOWNLOAD_URL && \
     fi
 
 # Stage 2: Final runtime image
-FROM debian:stable-slim
+FROM debian:stable-slim@sha256:a64d9dbf633e2a2503afac76be521dc25d9b5765150b30d31a3914d4ae969cab
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Link the image to its source repository (GitHub Container Registry)
