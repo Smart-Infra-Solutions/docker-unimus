@@ -84,4 +84,4 @@ steps:
       logins: *publish_logins
       default_labels: false
     when:
-      - event: [pull_request, tag]
+      - event: tag

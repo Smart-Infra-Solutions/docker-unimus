@@ -174,6 +174,19 @@ docker build -f Dockerfile-alpine \
   -t unimus:alpine .
 ```
 
+### Keeping dependencies up to date
+
+- **Base images** are pinned by digest (`tag@sha256:…`). **Dependabot**
+  (`.github/dependabot.yml`) opens a weekly PR when a new digest is published,
+  and also keeps the GitHub Actions up to date.
+- **The Unimus JAR** is watched by the `Unimus JAR update` workflow
+  (`.github/workflows/unimus-jar-update.yml`): every Monday it downloads the
+  latest JAR and, if its checksum changed, opens a PR bumping `JAR_SHA256` in
+  both Dockerfiles. It can also be run by hand from the Actions tab.
+
+Pull requests only build and test the images; images are published to GHCR on
+pushes to `main` (`latest-*`, `dev-*`) and on tags (`X.Y.Z-*`).
+
 ---
 
 ## Supported architectures

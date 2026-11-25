@@ -1,0 +1,28 @@
+# Dependabot keeps the base images of both Dockerfiles up to date.
+# The images are pinned by digest (tag@sha256:...): Dependabot opens a PR
+# whenever the digest behind a floating tag (latest, stable-slim, 25-latest)
+# changes, so every base-image refresh is traceable and goes through CI.
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "deps"
+    groups:
+      base-images:
+        patterns: ["*"]
+    ignore:
+      # Stay on the Java 25 LTS line; move to the next LTS by hand.
+      - dependency-name: azul/zulu-openjdk-alpine
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "ci"
